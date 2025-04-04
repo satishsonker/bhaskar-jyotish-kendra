@@ -3,15 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@heroicons/react": "^2.0.18",
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.15.6",
+    "@mui/material": "^5.15.6",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "framer-motion": "^10.16.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-helmet-async": "^1.3.0",
-    "react-router-dom": "^6.15.0",
+    "axios": "^1.6.5",
+    "framer-motion": "^10.18.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-helmet-async": "^2.0.4",
+    "react-router-dom": "^6.21.3",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
@@ -21,13 +25,16 @@
     "@tailwindcss/typography": "^0.5.9",
     "autoprefixer": "^10.4.15",
     "postcss": "^8.4.28",
-    "tailwindcss": "^3.3.3"
+    "sharp": "^0.33.5",
+    "tailwindcss": "^3.3.3",
+    "to-ico": "^1.1.5"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "generate-icons": "node scripts/generate-icons.js"
   },
   "eslintConfig": {
     "extends": [
@@ -44,5 +51,10 @@
     "development": [
       "last 1 chrome version"
     ]
-  }
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
