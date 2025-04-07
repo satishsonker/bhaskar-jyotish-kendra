@@ -20,11 +20,13 @@ import {
 import { motion } from 'framer-motion';
 import Header from '../components/Header';
 import { useThemeMode } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 
 const MainLayout = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const theme = useTheme();
   const { darkMode } = useThemeMode();
+  const { t } = useLanguage();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleDrawerToggle = () => {
@@ -32,17 +34,18 @@ const MainLayout = () => {
   };
 
   const menuItems = [
-    { text: 'Home', icon: <HomeIcon />, path: '/' },
-    { text: 'Horoscope', icon: <CalendarIcon />, path: '/horoscope' },
-    { text: 'Profile', icon: <PersonIcon />, path: '/profile' },
-    { text: 'Settings', icon: <SettingsIcon />, path: '/settings' },
+    { text: t('common.home'), icon: <HomeIcon />, path: '/' },
+    { text: t('common.horoscope'), icon: <CalendarIcon />, path: '/horoscope' },
+    { text: t('common.profile'), icon: <PersonIcon />, path: '/profile' },
+    { text: t('common.settings'), icon: <SettingsIcon />, path: '/settings' },
   ];
 
   const drawer = (
     <Box 
       sx={{ 
         width: 250,
-        bgcolor: darkMode ? 'background.default' : 'background.paper',
+        bgcolor: 'background.default',
+        color: 'text.primary',
       }}
     >
       <List>
@@ -53,6 +56,11 @@ const MainLayout = () => {
             component={motion.div}
             whileHover={{ x: 10 }}
             whileTap={{ scale: 0.95 }}
+            sx={{
+              '&:hover': {
+                bgcolor: 'action.hover',
+              },
+            }}
           >
             <ListItemIcon sx={{ color: 'primary.main' }}>{item.icon}</ListItemIcon>
             <ListItemText primary={item.text} />
@@ -63,20 +71,35 @@ const MainLayout = () => {
   );
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+    <Box sx={{ 
+      display: 'flex', 
+      flexDirection: 'column', 
+      minHeight: '100vh',
+      bgcolor: 'background.default',
+      color: 'text.primary',
+    }}>
       <Header onMenuClick={handleDrawerToggle} />
 
       <Drawer
-        variant="temporary"
+        variant={isMobile ? "temporary" : "permanent"}
         anchor="left"
         open={mobileOpen}
         onClose={handleDrawerToggle}
         ModalProps={{
-          keepMounted: true, // Better open performance on mobile
+          keepMounted: true,
         }}
         PaperProps={{
           sx: {
-            bgcolor: darkMode ? 'background.default' : 'background.paper',
+            bgcolor: 'background.default',
+            borderRight: `1px solid ${theme.palette.divider}`,
+          },
+        }}
+        sx={{
+          width: isMobile ? 0 : 250,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: 250,
+            boxSizing: 'border-box',
           },
         }}
       >
@@ -87,8 +110,11 @@ const MainLayout = () => {
         component="main" 
         sx={{ 
           flexGrow: 1,
-          bgcolor: darkMode ? 'background.default' : 'background.paper',
-          transition: 'background-color 0.3s ease',
+          bgcolor: 'background.default',
+          transition: theme.transitions.create(['background-color'], {
+            duration: theme.transitions.duration.standard,
+          }),
+          ml: isMobile ? 0 : '250px',
         }}
       >
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
@@ -102,8 +128,9 @@ const MainLayout = () => {
           py: 3,
           px: 2,
           mt: 'auto',
-          bgcolor: darkMode ? 'background.paper' : 'grey.100',
+          bgcolor: 'background.paper',
           color: 'text.secondary',
+          ml: isMobile ? 0 : '250px',
         }}
       >
         <Container maxWidth="lg">
@@ -112,7 +139,7 @@ const MainLayout = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
           >
-            © {new Date().getFullYear()} Bhaskar Jyotish Kendra. All rights reserved.
+            {t('common.footer.copyright', { year: new Date().getFullYear() })}
           </motion.div>
         </Container>
       </Box>

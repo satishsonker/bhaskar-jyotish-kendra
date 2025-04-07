@@ -21,13 +21,13 @@ import {
   Person as PersonIcon,
   Menu as MenuIcon,
 } from '@mui/icons-material';
+import { motion } from 'framer-motion';
 import { useThemeMode } from '../context/ThemeContext';
 import { useLanguage } from '../context/LanguageContext';
-import { motion } from 'framer-motion';
 
 const Header = ({ onMenuClick }) => {
   const { darkMode, toggleTheme } = useThemeMode();
-  const { currentLang, changeLanguage, supportedLanguages, currentLangName } = useLanguage();
+  const { currentLang, changeLanguage, supportedLanguages, t } = useLanguage();
   const [langMenuAnchor, setLangMenuAnchor] = useState(null);
   const [userMenuAnchor, setUserMenuAnchor] = useState(null);
   const [notifMenuAnchor, setNotifMenuAnchor] = useState(null);
@@ -37,9 +37,9 @@ const Header = ({ onMenuClick }) => {
 
   // Mock notifications
   const notifications = [
-    { id: 1, text: 'New horoscope available', unread: true },
-    { id: 2, text: 'Your daily prediction is ready', unread: true },
-    { id: 3, text: 'Upcoming auspicious dates', unread: false },
+    { id: 1, text: t('notifications.newHoroscope'), unread: true },
+    { id: 2, text: t('notifications.dailyPrediction'), unread: true },
+    { id: 3, text: t('notifications.auspiciousDates'), unread: false },
   ];
 
   const unreadCount = notifications.filter(n => n.unread).length;
@@ -66,13 +66,19 @@ const Header = ({ onMenuClick }) => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: 'spring', stiffness: 100 }}
+      elevation={darkMode ? 2 : 1}
+      sx={{
+        bgcolor: 'background.paper',
+        color: 'text.primary',
+        borderBottom: `1px solid ${theme.palette.divider}`,
+      }}
     >
       <Toolbar>
         {isMobile && (
           <IconButton
             edge="start"
             color="inherit"
-            aria-label="menu"
+            aria-label={t('common.menu')}
             onClick={onMenuClick}
             sx={{ mr: 1 }}
           >
@@ -83,12 +89,13 @@ const Header = ({ onMenuClick }) => {
         <Box 
           component="img"
           src="/logo.svg"
-          alt="BJK Logo"
+          alt={t('common.appName')}
           sx={{ 
-            width: 40, 
-            height: 40, 
+            width: { xs: 32, sm: 40 },
+            height: { xs: 32, sm: 40 },
             mr: 1,
             filter: darkMode ? 'brightness(1.2)' : 'none',
+            transition: theme.transitions.create(['filter']),
           }}
         />
 
@@ -102,13 +109,14 @@ const Header = ({ onMenuClick }) => {
             letterSpacing: '0.5px',
             display: 'flex',
             alignItems: 'center',
+            fontSize: { xs: '1rem', sm: '1.25rem' },
           }}
         >
-          Bhaskar Jyotish Kendra
+          {t('common.appName')}
         </Typography>
 
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <Tooltip title={`Switch to ${darkMode ? 'light' : 'dark'} mode`}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 0.5, sm: 1 } }}>
+          <Tooltip title={darkMode ? t('common.lightMode') : t('common.darkMode')}>
             <IconButton 
               color="inherit" 
               onClick={toggleTheme}
@@ -120,7 +128,7 @@ const Header = ({ onMenuClick }) => {
             </IconButton>
           </Tooltip>
 
-          <Tooltip title="Change language">
+          <Tooltip title={t('common.changeLanguage')}>
             <IconButton 
               color="inherit"
               onClick={handleLanguageMenu}
@@ -131,7 +139,7 @@ const Header = ({ onMenuClick }) => {
             </IconButton>
           </Tooltip>
 
-          <Tooltip title="Notifications">
+          <Tooltip title={t('common.notifications')}>
             <IconButton 
               color="inherit"
               onClick={handleNotifMenu}
@@ -144,13 +152,19 @@ const Header = ({ onMenuClick }) => {
             </IconButton>
           </Tooltip>
 
-          <Tooltip title="Account settings">
+          <Tooltip title={t('common.accountSettings')}>
             <IconButton
               onClick={handleUserMenu}
               component={motion.button}
               whileHover={{ scale: 1.1 }}
             >
-              <Avatar sx={{ width: 32, height: 32, bgcolor: 'secondary.main' }}>
+              <Avatar 
+                sx={{ 
+                  width: { xs: 28, sm: 32 }, 
+                  height: { xs: 28, sm: 32 }, 
+                  bgcolor: 'secondary.main',
+                }}
+              >
                 <PersonIcon />
               </Avatar>
             </IconButton>
@@ -164,7 +178,12 @@ const Header = ({ onMenuClick }) => {
           onClose={handleCloseMenus}
           PaperProps={{
             elevation: 3,
-            sx: { mt: 1.5 }
+            sx: { 
+              mt: 1.5,
+              bgcolor: 'background.paper',
+              borderRadius: 2,
+              minWidth: 180,
+            }
           }}
         >
           {Object.entries(supportedLanguages).map(([code, { name, nativeName }]) => (
@@ -172,6 +191,15 @@ const Header = ({ onMenuClick }) => {
               key={code}
               onClick={() => handleLanguageChange(code)}
               selected={code === currentLang}
+              sx={{
+                py: 1,
+                '&.Mui-selected': {
+                  bgcolor: 'action.selected',
+                },
+                '&:hover': {
+                  bgcolor: 'action.hover',
+                },
+              }}
             >
               <Typography variant="body2">
                 {nativeName} ({name})
@@ -187,7 +215,12 @@ const Header = ({ onMenuClick }) => {
           onClose={handleCloseMenus}
           PaperProps={{
             elevation: 3,
-            sx: { mt: 1.5, minWidth: 280 }
+            sx: { 
+              mt: 1.5, 
+              minWidth: 280,
+              bgcolor: 'background.paper',
+              borderRadius: 2,
+            }
           }}
         >
           {notifications.map((notif) => (
@@ -195,6 +228,8 @@ const Header = ({ onMenuClick }) => {
               key={notif.id}
               onClick={handleCloseMenus}
               sx={{ 
+                py: 1.5,
+                px: 2,
                 bgcolor: notif.unread ? 'action.hover' : 'inherit',
                 '&:hover': { bgcolor: 'action.selected' }
               }}
@@ -211,12 +246,23 @@ const Header = ({ onMenuClick }) => {
           onClose={handleCloseMenus}
           PaperProps={{
             elevation: 3,
-            sx: { mt: 1.5 }
+            sx: { 
+              mt: 1.5,
+              bgcolor: 'background.paper',
+              borderRadius: 2,
+              minWidth: 180,
+            }
           }}
         >
-          <MenuItem onClick={handleCloseMenus}>Profile</MenuItem>
-          <MenuItem onClick={handleCloseMenus}>My Account</MenuItem>
-          <MenuItem onClick={handleCloseMenus}>Logout</MenuItem>
+          <MenuItem onClick={handleCloseMenus}>
+            {t('common.profile')}
+          </MenuItem>
+          <MenuItem onClick={handleCloseMenus}>
+            {t('common.myAccount')}
+          </MenuItem>
+          <MenuItem onClick={handleCloseMenus}>
+            {t('common.logout')}
+          </MenuItem>
         </Menu>
       </Toolbar>
     </AppBar>

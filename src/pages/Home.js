@@ -1,105 +1,85 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
-import {
+import { 
+  Container, 
+  Typography, 
   Box,
-  Container,
-  Typography,
-  Grid,
-  Card,
-  CardContent,
-  Button
+  useTheme,
 } from '@mui/material';
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
+import { useLanguage } from '../context/LanguageContext';
+import ZodiacGrid from '../components/ZodiacGrid';
 
 const Home = () => {
+  const theme = useTheme();
+  const { t } = useLanguage();
+
   return (
     <>
       <Helmet>
-        <title>Bhaskar Jyotish Kendra - Your Trusted Astrology Center</title>
-        <meta
-          name="description"
-          content="Welcome to Bhaskar Jyotish Kendra, your trusted destination for authentic astrology services and spiritual guidance."
-        />
+        <title>{t('common.appName')} - {t('common.home')}</title>
+        <meta name="description" content={t('common.appName') + ' - ' + t('horoscope.daily')} />
       </Helmet>
-
-      <Box component={motion.div} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-        {/* Hero Section */}
+      
+      <Container maxWidth="xl">
         <Box
-          sx={{
-            bgcolor: 'primary.main',
-            color: 'white',
-            py: { xs: 6, md: 12 },
-            borderRadius: { xs: 0, md: 2 },
-            mb: 6,
-            textAlign: 'center'
+          component={motion.div}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          sx={{ 
+            py: { xs: 4, md: 6 },
+            background: theme.palette.mode === 'dark'
+              ? 'linear-gradient(180deg, rgba(18,18,18,1) 0%, rgba(18,18,18,0.8) 100%)'
+              : 'linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(245,245,245,1) 100%)'
           }}
         >
-          <Container maxWidth="md">
-            <Typography
-              component={motion.h1}
-              variant="h2"
-              initial={{ y: -20 }}
-              animate={{ y: 0 }}
-              gutterBottom
-            >
-              Welcome to Bhaskar Jyotish Kendra
-            </Typography>
-            <Typography
-              variant="h5"
-              component={motion.p}
-              initial={{ y: -10 }}
-              animate={{ y: 0 }}
-              sx={{ mb: 4 }}
-            >
-              Your Trusted Destination for Vedic Astrology
-            </Typography>
-            <Button
-              variant="contained"
-              color="secondary"
-              size="large"
-              component={motion.button}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Get Started
-            </Button>
-          </Container>
-        </Box>
-
-        {/* Services Section */}
-        <Container maxWidth="lg">
-          <Typography variant="h3" component="h2" gutterBottom align="center" sx={{ mb: 6 }}>
-            Our Services
+          <Typography
+            component="h1"
+            variant="h3"
+            align="center"
+            gutterBottom
+            sx={{
+              fontWeight: 700,
+              background: theme.palette.mode === 'dark'
+                ? 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)'
+                : 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              mb: { xs: 3, md: 4 },
+            }}
+          >
+            {t('common.appName')}
           </Typography>
-          <Grid container spacing={4}>
-            {[
-              'Birth Chart Analysis',
-              'Marriage Compatibility',
-              'Career Guidance',
-              'Spiritual Counseling'
-            ].map((service, index) => (
-              <Grid item xs={12} sm={6} md={3} key={service}>
-                <Card
-                  component={motion.div}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  sx={{ height: '100%' }}
-                >
-                  <CardContent>
-                    <Typography variant="h6" component="h3" gutterBottom>
-                      {service}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Detailed analysis and guidance based on ancient Vedic principles.
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </Box>
+
+          <Typography
+            variant="h5"
+            align="center"
+            color="text.secondary"
+            paragraph
+            sx={{ mb: { xs: 4, md: 6 } }}
+          >
+            {t('horoscope.daily')}
+          </Typography>
+
+          <Typography
+            variant="h6"
+            align="center"
+            gutterBottom
+            sx={{
+              fontWeight: 600,
+              color: theme.palette.text.primary,
+              mb: { xs: 2, md: 3 },
+            }}
+          >
+            {t('horoscope.zodiacSigns')}
+          </Typography>
+
+          <ZodiacGrid />
+
+          {/* Add more sections here as needed */}
+        </Box>
+      </Container>
     </>
   );
 };
