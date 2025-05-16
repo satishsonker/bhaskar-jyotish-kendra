@@ -10,6 +10,20 @@ export const en = {
     select: 'Select Language',
     change: 'Change Language',
   },
+  services: {
+    title: 'Our Services',
+    subtitle: 'Discover our comprehensive range of astrological services tailored to guide you through life\'s journey',
+    description: 'Professional astrology services including daily horoscope, birth chart analysis, marriage compatibility, career guidance, and business astrology.',
+    viewMore: 'Learn More',
+    categories: {
+      daily: 'Daily Horoscope',
+      birthChart: 'Birth Chart Analysis',
+      marriage: 'Marriage Compatibility',
+      love: 'Love Compatibility',
+      career: 'Career Guidance',
+      business: 'Business Astrology'
+    }
+  },
   notifications: {
     title: 'Notifications',
     newHoroscope: 'Your new horoscope is ready',
@@ -31,8 +45,8 @@ export const en = {
   },
   menu: {
     home: 'Home',
-    profile:"Profile",
-    settings:"Settings",
+    profile: "Profile",
+    settings: "Settings",
     horoscope: 'Horoscope',
     kundli: 'Kundli',
     muhurat: 'Muhurat',

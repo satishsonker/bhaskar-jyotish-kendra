@@ -4,15 +4,18 @@ import {
   Box,
   Container,
   Typography,
-  Grid,
-  Card,
-  CardContent,
-  Button
+  Button,
+  useTheme
 } from '@mui/material';
 import { motion } from 'framer-motion';
 import ZodiacGrid from '../components/ZodiacGrid';
+import Services from '../components/services/Services';
+import { useLanguage } from '../context/LanguageContext';
 
 const Home = () => {
+  const { t } = useLanguage();
+  const theme = useTheme();
+
   return (
     <>
       <Helmet>
@@ -30,29 +33,57 @@ const Home = () => {
             bgcolor: 'primary.main',
             color: 'white',
             py: { xs: 6, md: 12 },
-            borderRadius: { xs: 0, md: 2 },
+            borderRadius: { xs: 0, md: '0 0 2rem 2rem' },
             mb: 6,
-            textAlign: 'center'
+            textAlign: 'center',
+            position: 'relative',
+            overflow: 'hidden',
+            '&::after': {
+              content: '""',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: `linear-gradient(45deg, ${theme.palette.primary.dark}80, ${theme.palette.primary.main}80)`,
+              zIndex: 1
+            }
           }}
         >
-          <Container maxWidth="md">
+          <Container 
+            maxWidth="md"
+            sx={{ 
+              position: 'relative',
+              zIndex: 2
+            }}
+          >
             <Typography
               component={motion.h1}
               variant="h2"
-              initial={{ y: -20 }}
-              animate={{ y: 0 }}
+              initial={{ y: -20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.2 }}
               gutterBottom
+              sx={{
+                fontWeight: 700,
+                fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' }
+              }}
             >
-              Welcome to Bhaskar Jyotish Kendra
+              {t('home.welcome')}
             </Typography>
             <Typography
               variant="h5"
               component={motion.p}
-              initial={{ y: -10 }}
-              animate={{ y: 0 }}
-              sx={{ mb: 4 }}
+              initial={{ y: -10, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.4 }}
+              sx={{ 
+                mb: 4,
+                fontSize: { xs: '1rem', sm: '1.25rem', md: '1.5rem' },
+                opacity: 0.9
+              }}
             >
-              Your Trusted Destination for Vedic Astrology
+              {t('home.subtitle')}
             </Typography>
             <Button
               variant="contained"
@@ -61,47 +92,61 @@ const Home = () => {
               component={motion.button}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.6 }}
+              sx={{
+                borderRadius: '2rem',
+                px: 4,
+                py: 1.5,
+                fontSize: '1.1rem',
+                boxShadow: theme.shadows[4]
+              }}
             >
-              Get Started
+              {t('common.getStarted')}
             </Button>
           </Container>
         </Box>
 
         {/* Services Section */}
-        <Container maxWidth="lg">
-          <Typography variant="h3" component="h2" gutterBottom align="center" sx={{ mb: 6 }}>
-            Our Services
-          </Typography>
-          <Grid container spacing={4}>
-            {[
-              'Birth Chart Analysis',
-              'Marriage Compatibility',
-              'Career Guidance',
-              'Spiritual Counseling'
-            ].map((service, index) => (
-              <Grid item xs={12} sm={6} md={3} key={service}>
-                <Card
-                  component={motion.div}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  sx={{ height: '100%' }}
-                >
-                  <CardContent>
-                    <Typography variant="h6" component="h3" gutterBottom>
-                      {service}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Detailed analysis and guidance based on ancient Vedic principles.
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
+        <Services />
+
+        {/* Zodiac Grid Section */}
+        <Box sx={{ py: 6 }}>
+          <Container maxWidth="lg">
+            <Box
+              component={motion.div}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              sx={{ textAlign: 'center', mb: 6 }}
+            >
+              <Typography
+                variant="h3"
+                sx={{
+                  fontWeight: 600,
+                  mb: 2,
+                  fontSize: { xs: '1.75rem', sm: '2rem', md: '2.5rem' },
+                  background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent'
+                }}
+              >
+                {t('zodiac.title')}
+              </Typography>
+              <Typography
+                variant="subtitle1"
+                color="text.secondary"
+                sx={{ maxWidth: '600px', mx: 'auto', px: 2 }}
+              >
+                {t('zodiac.description', 'Explore your zodiac sign to discover daily predictions and insights about your life path.')}
+              </Typography>
+            </Box>
+            <ZodiacGrid />
+          </Container>
+        </Box>
       </Box>
-      <ZodiacGrid />
     </>
   );
 };

@@ -18,7 +18,7 @@ import { useLanguage } from '../../../context/LanguageContext';
 
 const HeaderMenu = () => {
   const { isDarkMode, toggleTheme } = useThemeMode();
-  const { currentLanguage, changeLanguage, translations, supportedLanguages } = useLanguage();
+  const { currentLang, changeLanguage, t, supportedLanguages } = useLanguage();
   const theme = useTheme();
 
   const [languageMenu, setLanguageMenu] = useState(null);
@@ -27,19 +27,19 @@ const HeaderMenu = () => {
 
   // Mock notifications - replace with actual data later
   const notifications = [
-    { id: 1, message: translations.notifications.new_horoscope },
-    { id: 2, message: translations.notifications.appointment }
+    { id: 1, message: t('notifications.newHoroscope') },
+    { id: 2, message: t('notifications.dailyPrediction') }
   ];
 
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-      <Tooltip title={isDarkMode ? translations.theme.light : translations.theme.dark}>
+      <Tooltip title={isDarkMode ? t('theme.light') : t('theme.dark')}>
         <IconButton onClick={toggleTheme} color="inherit">
           {isDarkMode ? <Brightness7Icon /> : <Brightness4Icon />}
         </IconButton>
       </Tooltip>
 
-      <Tooltip title={translations.language.select}>
+      <Tooltip title={t('language.select')}>
         <IconButton
           onClick={(e) => setLanguageMenu(e.currentTarget)}
           color="inherit"
@@ -53,21 +53,21 @@ const HeaderMenu = () => {
         open={Boolean(languageMenu)}
         onClose={() => setLanguageMenu(null)}
       >
-        {Object.entries(supportedLanguages).map(([code, name]) => (
+        {Object.entries(supportedLanguages).map(([code, lang]) => (
           <MenuItem
             key={code}
             onClick={() => {
               changeLanguage(code);
               setLanguageMenu(null);
             }}
-            selected={currentLanguage === code}
+            selected={currentLang === code}
           >
-            {name}
+            {lang.nativeName} {lang.icon}
           </MenuItem>
         ))}
       </Menu>
 
-      <Tooltip title={translations.notifications.title}>
+      <Tooltip title={t('notifications.title')}>
         <IconButton
           onClick={(e) => setNotificationsMenu(e.currentTarget)}
           color="inherit"
@@ -89,17 +89,17 @@ const HeaderMenu = () => {
           </MenuItem>
         ))}
         <MenuItem onClick={() => setNotificationsMenu(null)}>
-          {translations.notifications.mark_all_read}
+          {t('notifications.markAllAsRead')}
         </MenuItem>
       </Menu>
 
-      <Tooltip title={translations.user.profile}>
+      <Tooltip title={t('user.profile')}>
         <IconButton
           onClick={(e) => setUserMenu(e.currentTarget)}
           sx={{ p: 0, ml: 1 }}
         >
           <Avatar
-            alt={translations.user.profile}
+            alt={t('user.profile')}
             src="/path-to-user-image.jpg"
             sx={{ 
               width: 35, 
@@ -116,13 +116,13 @@ const HeaderMenu = () => {
         onClose={() => setUserMenu(null)}
       >
         <MenuItem onClick={() => setUserMenu(null)}>
-          {translations.user.profile}
+          {t('user.profile')}
         </MenuItem>
         <MenuItem onClick={() => setUserMenu(null)}>
-          {translations.user.settings}
+          {t('user.settings')}
         </MenuItem>
         <MenuItem onClick={() => setUserMenu(null)}>
-          {translations.user.logout}
+          {t('user.logout')}
         </MenuItem>
       </Menu>
     </Box>

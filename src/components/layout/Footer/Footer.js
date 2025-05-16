@@ -15,7 +15,7 @@ import { useLanguage } from '../../../context/LanguageContext';
 const Footer = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const { translations } = useLanguage();
+  const { t } = useLanguage();
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
@@ -58,7 +58,7 @@ const Footer = () => {
               }
             }}
           >
-            {translations.footer.copyright.replace('{{year}}', currentYear)}
+            {t('footer.copyright', { year: currentYear })}
           </Typography>
 
           <Box sx={{ display: 'flex', gap: 1 }}>

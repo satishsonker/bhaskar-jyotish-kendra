@@ -10,10 +10,29 @@ export const hi = {
     select: 'भाषा चुनें',
     change: 'भाषा बदलें',
   },
+  services: {
+    title: 'हमारी सेवाएं',
+    subtitle: 'जीवन की यात्रा में मार्गदर्शन के लिए हमारी व्यापक ज्योतिषीय सेवाओं की खोज करें',
+    description: 'दैनिक राशिफल, जन्म कुंडली विश्लेषण, वैवाहिक मेल, करियर मार्गदर्शन और व्यावसायिक ज्योतिष सहित पेशेवर ज्योतिष सेवाएं।',
+    viewMore: 'और जानें',
+    categories: {
+      daily: 'दैनिक राशिफल',
+      birthChart: 'जन्म कुंडली विश्लेषण',
+      marriage: 'वैवाहिक मेल',
+      love: 'प्रेम संबंधी मेल',
+      career: 'करियर मार्गदर्शन',
+      business: 'व्यावसायिक ज्योतिष'
+    },
+    readMore: 'और पढ़ें',
+    learnMore: 'और जानें',
+    consultation: 'परामर्श लें',
+    bookNow: 'अभी बुक करें',
+    details: 'विवरण देखें'
+  },
   notifications: {
     title: 'सूचनाएं',
-    newHoroscope: 'आपकी नई कुंडली तैयार है',
-    reminder: 'अपनी दैनिक राशिफल देखें',
+    newHoroscope: 'आपका नया राशिफल तैयार है',
+    reminder: 'अपना दैनिक राशिफल देखें',
     update: 'नई सुविधाएं उपलब्ध हैं',
     dailyPrediction: 'आपकी दैनिक भविष्यवाणी तैयार है',
     auspiciousDates: 'आगामी शुभ मुहूर्त',
@@ -39,8 +58,8 @@ export const hi = {
     remedies: 'उपाय',
     articles: 'लेख',
     contact: 'संपर्क करें',
-    profile:"Profile",
-    settings:"Settings",
+    profile: "प्रोफ़ाइल",
+    settings: "सेटिंग्स"
   },
   common: {
     loading: 'लोड हो रहा है...',
@@ -52,7 +71,8 @@ export const hi = {
     delete: 'हटाएं',
     confirm: 'पुष्टि करें',
     update: 'अपडेट करें',
-    tryAgain: 'पुनः प्रयास करें',
+    tryAgain: 'कृपया पुनः प्रयास करें',
+    getStarted: 'शुरू करें'
   },
   home: {
     welcome: 'भास्कर ज्योतिष केंद्र में आपका स्वागत है',
@@ -68,6 +88,8 @@ export const hi = {
     transitChart: 'गोचर कुंडली'
   },
   zodiac: {
+    title: 'राशि चक्र',
+    description: 'अपनी राशि के दैनिक भविष्यफल और जीवन पथ के बारे में जानकारी प्राप्त करें',
     aries: 'मेष',
     taurus: 'वृषभ',
     gemini: 'मिथुन',
@@ -88,11 +110,11 @@ export const hi = {
     tryAgain: 'कृपया पुनः प्रयास करें',
     boundary: {
       title: 'एप्लिकेशन त्रुटि',
-      message: 'एप्लिकेशन में एक त्रुटि हुई। कृपया पेज को रिफ्रेश करें।',
-      refresh: 'पेज रिफ्रेश करें'
+      message: 'एप्लिकेशन में एक त्रुटि हुई। कृपया पृष्ठ को रिफ्रेश करें।',
+      refresh: 'पृष्ठ रिफ्रेश करें'
     }
   },
   footer: {
-    copyright: '© {{year}} भास्कर ज्योतिष केंद्र। सर्वाधिकार सुरक्षित।'
+    copyright: '© {year} भास्कर ज्योतिष केंद्र। सर्वाधिकार सुरक्षित।'
   }
 }; 

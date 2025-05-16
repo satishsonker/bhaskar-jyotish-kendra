@@ -6,48 +6,30 @@ import {
   ListItemIcon,
   ListItemText,
   useTheme,
-  useMediaQuery,
   Box
 } from '@mui/material';
-import { useNavigate, useLocation } from 'react-router-dom';
-import HomeIcon from '@mui/icons-material/Home';
-import StarIcon from '@mui/icons-material/Star';
-import PersonIcon from '@mui/icons-material/Person';
-import SettingsIcon from '@mui/icons-material/Settings';
-import { useLanguage } from '../../../context/LanguageContext';
+import { useNavigation } from '../Navigation/NavigationItems';
 
 const drawerWidth = 240;
 
 const Drawer = ({ open, onClose }) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { translations } = useLanguage();
-
-  const menuItems = [
-    { path: '/', icon: <HomeIcon />, label: translations.menu.home },
-    { path: '/horoscope', icon: <StarIcon />, label: translations.menu.horoscope },
-    { path: '/profile', icon: <PersonIcon />, label: translations.menu.profile },
-    { path: '/settings', icon: <SettingsIcon />, label: translations.menu.settings }
-  ];
+  const { items, currentPath, navigate } = useNavigation();
 
   const handleNavigation = (path) => {
     navigate(path);
-    if (isMobile) {
-      onClose();
-    }
+    onClose();
   };
 
   const drawerContent = (
     <Box sx={{ mt: 8 }}>
       <List>
-        {menuItems.map((item) => (
+        {items.map((item) => (
           <ListItem
             button
             key={item.path}
             onClick={() => handleNavigation(item.path)}
-            selected={location.pathname === item.path}
+            selected={currentPath === item.path}
             sx={{
               my: 0.5,
               mx: 1,
@@ -66,7 +48,7 @@ const Drawer = ({ open, onClose }) => {
           >
             <ListItemIcon
               sx={{
-                color: location.pathname === item.path 
+                color: currentPath === item.path 
                   ? theme.palette.primary.main 
                   : theme.palette.text.primary
               }}
@@ -76,7 +58,7 @@ const Drawer = ({ open, onClose }) => {
             <ListItemText 
               primary={item.label}
               sx={{
-                color: location.pathname === item.path 
+                color: currentPath === item.path 
                   ? theme.palette.primary.main 
                   : theme.palette.text.primary
               }}
@@ -87,7 +69,7 @@ const Drawer = ({ open, onClose }) => {
     </Box>
   );
 
-  return isMobile ? (
+  return (
     <MuiDrawer
       variant="temporary"
       open={open}
@@ -102,22 +84,6 @@ const Drawer = ({ open, onClose }) => {
           borderRight: `1px solid ${theme.palette.divider}`,
         },
       }}
-    >
-      {drawerContent}
-    </MuiDrawer>
-  ) : (
-    <MuiDrawer
-      variant="permanent"
-      sx={{
-        display: { xs: 'none', md: 'block' },
-        '& .MuiDrawer-paper': {
-          boxSizing: 'border-box',
-          width: drawerWidth,
-          backgroundColor: theme.palette.background.paper,
-          borderRight: `1px solid ${theme.palette.divider}`,
-        },
-      }}
-      open
     >
       {drawerContent}
     </MuiDrawer>

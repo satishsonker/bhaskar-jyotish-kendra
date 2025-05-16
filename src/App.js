@@ -1,8 +1,8 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { useThemeMode } from './context/ThemeContext';
+import { ThemeModeProvider, useThemeMode } from './context/ThemeContext';
 import { LanguageProvider } from './context/LanguageContext';
 import Layout from './components/layout/Layout';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -14,27 +14,33 @@ import Profile from './pages/Profile';
 import Settings from './pages/Settings';
 import NotFound from './pages/NotFound';
 
-const App = () => {
+const AppContent = () => {
   const { theme } = useThemeMode();
 
   return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <LanguageProvider>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/horoscope" element={<Horoscope />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Layout>
+      </LanguageProvider>
+    </ThemeProvider>
+  );
+};
+
+const App = () => {
+  return (
     <ErrorBoundary>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <LanguageProvider>
-          <Router>
-            <Layout>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/horoscope" element={<Horoscope />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/settings" element={<Settings />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </Layout>
-          </Router>
-        </LanguageProvider>
-      </ThemeProvider>
+      <ThemeModeProvider>
+        <AppContent />
+      </ThemeModeProvider>
     </ErrorBoundary>
   );
 };

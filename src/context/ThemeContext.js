@@ -1,53 +1,98 @@
-import React, { createContext, useContext, useState, useEffect, useMemo } from 'react';
-import { createTheme, ThemeProvider as MuiThemeProvider } from '@mui/material';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { createTheme } from '@mui/material/styles';
 
 const ThemeContext = createContext();
 
 export const useThemeMode = () => {
-  return useContext(ThemeContext);
+  const context = useContext(ThemeContext);
+  if (!context) {
+    throw new Error('useThemeMode must be used within a ThemeModeProvider');
+  }
+  return context;
 };
 
-export const ThemeProvider = ({ children }) => {
-  const [darkMode, setDarkMode] = useState(() => {
-    const savedMode = localStorage.getItem('darkMode');
-    return savedMode ? JSON.parse(savedMode) : false;
+export const ThemeModeProvider = ({ children }) => {
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const savedMode = localStorage.getItem('themeMode');
+    return savedMode ? savedMode === 'dark' : false;
   });
 
   useEffect(() => {
-    localStorage.setItem('darkMode', JSON.stringify(darkMode));
-    document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light');
-  }, [darkMode]);
+    localStorage.setItem('themeMode', isDarkMode ? 'dark' : 'light');
+  }, [isDarkMode]);
 
-  const theme = useMemo(() => createTheme({
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
+  const theme = createTheme({
     palette: {
-      mode: darkMode ? 'dark' : 'light',
+      mode: isDarkMode ? 'dark' : 'light',
       primary: {
         main: '#3498DB',
         light: '#5DADE2',
         dark: '#2874A6',
+        contrastText: '#fff'
       },
       secondary: {
         main: '#F1C40F',
         light: '#F4D03F',
         dark: '#D4AC0D',
+        contrastText: '#000'
       },
       background: {
-        default: darkMode ? '#121212' : '#F8FAFC',
-        paper: darkMode ? '#1E1E1E' : '#FFFFFF',
+        default: isDarkMode ? '#1a1a1a' : '#F8FAFC',
+        paper: isDarkMode ? '#2d2d2d' : '#FFFFFF'
       },
       text: {
-        primary: darkMode ? '#FFFFFF' : '#2C3E50',
-        secondary: darkMode ? '#B3B3B3' : '#34495E',
-      },
+        primary: isDarkMode ? '#FFFFFF' : '#2C3E50',
+        secondary: isDarkMode ? '#B3B3B3' : '#34495E'
+      }
     },
     typography: {
       fontFamily: '"Poppins", "Roboto", "Helvetica", "Arial", sans-serif',
-      h1: { fontWeight: 600 },
-      h2: { fontWeight: 600 },
-      h3: { fontWeight: 600 },
-      h4: { fontWeight: 600 },
-      h5: { fontWeight: 600 },
-      h6: { fontWeight: 600 },
+      h1: {
+        fontWeight: 600,
+        fontSize: '2.5rem',
+        '@media (max-width:600px)': {
+          fontSize: '2rem',
+        },
+      },
+      h2: {
+        fontWeight: 600,
+        fontSize: '2rem',
+        '@media (max-width:600px)': {
+          fontSize: '1.75rem',
+        },
+      },
+      h3: {
+        fontWeight: 600,
+        fontSize: '1.75rem',
+        '@media (max-width:600px)': {
+          fontSize: '1.5rem',
+        },
+      },
+      h4: {
+        fontWeight: 600,
+        fontSize: '1.5rem',
+        '@media (max-width:600px)': {
+          fontSize: '1.25rem',
+        },
+      },
+      h5: {
+        fontWeight: 600,
+        fontSize: '1.25rem',
+        '@media (max-width:600px)': {
+          fontSize: '1.1rem',
+        },
+      },
+      h6: {
+        fontWeight: 600,
+        fontSize: '1.1rem',
+        '@media (max-width:600px)': {
+          fontSize: '1rem',
+        },
+      },
     },
     components: {
       MuiButton: {
@@ -55,6 +100,7 @@ export const ThemeProvider = ({ children }) => {
           root: {
             borderRadius: 8,
             textTransform: 'none',
+            fontWeight: 500,
           },
         },
       },
@@ -62,31 +108,40 @@ export const ThemeProvider = ({ children }) => {
         styleOverrides: {
           root: {
             borderRadius: 12,
-            boxShadow: darkMode 
-              ? '0 4px 6px rgba(0, 0, 0, 0.2)'
-              : '0 4px 6px rgba(0, 0, 0, 0.1)',
+            transition: 'all 0.3s ease-in-out',
+            '&:hover': {
+              transform: 'translateY(-4px)',
+              boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+            },
           },
         },
       },
-      MuiDrawer: {
+      MuiAppBar: {
         styleOverrides: {
-          paper: {
-            backgroundColor: darkMode ? '#121212' : '#FFFFFF',
+          root: {
+            backgroundColor: isDarkMode ? '#2d2d2d' : '#FFFFFF',
+            color: isDarkMode ? '#FFFFFF' : '#2C3E50',
           },
         },
       },
     },
-  }), [darkMode]);
-
-  const toggleTheme = () => {
-    setDarkMode(prev => !prev);
-  };
+    shape: {
+      borderRadius: 8,
+    },
+    shadows: [
+      'none',
+      '0 2px 4px rgba(0,0,0,0.05)',
+      '0 4px 8px rgba(0,0,0,0.05)',
+      '0 8px 16px rgba(0,0,0,0.05)',
+      '0 16px 24px rgba(0,0,0,0.05)',
+      '0 24px 32px rgba(0,0,0,0.05)',
+      ...Array(19).fill('none'),
+    ],
+  });
 
   return (
-    <ThemeContext.Provider value={{ darkMode, toggleTheme }}>
-      <MuiThemeProvider theme={theme}>
-        {children}
-      </MuiThemeProvider>
+    <ThemeContext.Provider value={{ theme, isDarkMode, toggleTheme }}>
+      {children}
     </ThemeContext.Provider>
   );
-}; 
+};
