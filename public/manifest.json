@@ -1,17 +1,27 @@
 {
   "name": "Bhaskar Jyotish Kendra",
   "short_name": "BJK",
-  "description": "Your trusted astrology companion",
+  "description": "Your trusted destination for authentic astrology services and spiritual guidance",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#FFFFFF",
-  "theme_color": "#FFD700",
+  "background_color": "#ffffff",
+  "theme_color": "#FF6B6B",
   "orientation": "portrait",
   "icons": [
     {
       "src": "favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
+    },
+    {
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "512x512"
     },
     {
       "src": "icons/icon-72x72.png",
@@ -44,20 +54,8 @@
       "purpose": "any maskable"
     },
     {
-      "src": "icons/icon-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
       "src": "icons/icon-384x384.png",
       "sizes": "384x384",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "icons/icon-512x512.png",
-      "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
     }
@@ -66,14 +64,14 @@
     {
       "name": "Daily Horoscope",
       "short_name": "Horoscope",
-      "description": "View your daily horoscope",
+      "description": "Get your daily horoscope reading for all zodiac signs",
       "url": "/horoscope",
       "icons": [{ "src": "/icons/horoscope.png", "sizes": "192x192" }]
     },
     {
       "name": "Birth Chart",
       "short_name": "Chart",
-      "description": "Calculate your birth chart",
+      "description": "Calculate and analyze your birth chart",
       "url": "/birth-chart",
       "icons": [{ "src": "/icons/chart.png", "sizes": "192x192" }]
     }

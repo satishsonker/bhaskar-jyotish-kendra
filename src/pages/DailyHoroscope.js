@@ -36,7 +36,7 @@ const DailyHoroscope = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const { currentLanguage } = useLanguage();
+  const { t } = useLanguage();
 
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -56,8 +56,8 @@ const DailyHoroscope = () => {
   return (
     <>
       <Helmet>
-        <title>Daily Horoscope - Bhaskar Jyotish Kendra</title>
-        <meta name="description" content="Get your daily horoscope reading for all zodiac signs. Find out what the stars have in store for you today." />
+        <title>{t('horoscope.title')} - {t('app.title')}</title>
+        <meta name="description" content={t('meta.horoscope.description')} />
       </Helmet>
       <Container maxWidth="lg" sx={{ py: 4 }}>
         <Typography
@@ -74,7 +74,7 @@ const DailyHoroscope = () => {
             WebkitTextFillColor: 'transparent',
           }}
         >
-          {currentLanguage === 'en' ? 'Daily Horoscope' : 'दैनिक राशिफल'}
+          {t('horoscope.title')}
         </Typography>
         <Box
           component={motion.div}

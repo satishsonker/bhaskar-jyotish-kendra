@@ -10,6 +10,8 @@ import {
 import { motion } from 'framer-motion';
 import ZodiacGrid from '../components/ZodiacGrid';
 import Services from '../components/services/Services';
+import Astrologers from '../components/Astrologers';
+import AstrologyServices from '../components/AstrologyServices';
 import { useLanguage } from '../context/LanguageContext';
 
 const Home = () => {
@@ -110,6 +112,27 @@ const Home = () => {
 
         {/* Services Section */}
         <Services />
+
+        {/* Astrologers Section */}
+        <Box sx={{ py: 6, bgcolor: theme.palette.background.default }}>
+          <Container maxWidth="lg">
+            <Astrologers />
+          </Container>
+        </Box>
+
+        {/* Other Astrology Services Section */}
+        <Box 
+          sx={{ 
+            py: 6, 
+            bgcolor: theme.palette.mode === 'dark' 
+              ? 'rgba(255, 215, 0, 0.05)' 
+              : 'rgba(255, 140, 0, 0.05)' 
+          }}
+        >
+          <Container maxWidth="lg">
+            <AstrologyServices />
+          </Container>
+        </Box>
 
         {/* Zodiac Grid Section */}
         <Box sx={{ py: 6 }}>

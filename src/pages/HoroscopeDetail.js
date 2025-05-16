@@ -167,8 +167,11 @@ const HoroscopeDetail = () => {
   return (
     <>
       <Helmet>
-        <title>{`${sign?.charAt(0).toUpperCase()}${sign?.slice(1)} Horoscope - Bhaskar Jyotish Kendra`}</title>
-        <meta name="description" content={`Daily horoscope for ${sign}. Get detailed predictions about love, career, and health.`} />
+        <title>{t(`zodiac.${sign}`)} {t('horoscope.title')} - {t('app.title')}</title>
+        <meta 
+          name="description" 
+          content={t('meta.horoscope.description')} 
+        />
       </Helmet>
       <Container
         component={motion.div}
@@ -182,7 +185,7 @@ const HoroscopeDetail = () => {
           <IconButton
             onClick={() => navigate('/horoscope')}
             sx={{ mr: 2 }}
-            aria-label="back to horoscope"
+            aria-label={t('common.back')}
           >
             <ArrowBackIcon />
           </IconButton>
@@ -197,7 +200,7 @@ const HoroscopeDetail = () => {
               WebkitTextFillColor: 'transparent',
             }}
           >
-            {signInfo.symbol} {sign?.charAt(0).toUpperCase()}{sign?.slice(1)}
+            {signInfo.symbol} {t(`zodiac.${sign}`)}
           </Typography>
         </Box>
 

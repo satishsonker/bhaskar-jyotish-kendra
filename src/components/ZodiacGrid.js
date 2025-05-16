@@ -19,62 +19,62 @@ const zodiacSigns = [
   {
     name: 'aries',
     dateRange: 'Mar 21 - Apr 19',
-    icon: '/images/zodiac/aries.png'
+    icon: '/icons/zodiac/aries.png'
   },
   {
     name: 'taurus',
     dateRange: 'Apr 20 - May 20',
-    icon: '/images/zodiac/taurus.png'
+    icon: '/icons/zodiac/taurus.png'
   },
   {
     name: 'gemini',
     dateRange: 'May 21 - Jun 20',
-    icon: '/images/zodiac/gemini.png'
+    icon: '/icons/zodiac/gemini.png'
   },
   {
     name: 'cancer',
     dateRange: 'Jun 21 - Jul 22',
-    icon: '/images/zodiac/cancer.png'
+    icon: '/icons/zodiac/cancer.png'
   },
   {
     name: 'leo',
     dateRange: 'Jul 23 - Aug 22',
-    icon: '/images/zodiac/leo.png'
+    icon: '/icons/zodiac/leo.png'
   },
   {
     name: 'virgo',
     dateRange: 'Aug 23 - Sep 22',
-    icon: '/images/zodiac/virgo.png'
+    icon: '/icons/zodiac/virgo.png'
   },
   {
     name: 'libra',
     dateRange: 'Sep 23 - Oct 22',
-    icon: '/images/zodiac/libra.png'
+    icon: '/icons/zodiac/libra.png'
   },
   {
     name: 'scorpio',
     dateRange: 'Oct 23 - Nov 21',
-    icon: '/images/zodiac/scorpio.png'
+    icon: '/icons/zodiac/scorpius.png'
   },
   {
     name: 'sagittarius',
     dateRange: 'Nov 22 - Dec 21',
-    icon: '/images/zodiac/sagittarius.png'
+    icon: '/icons/zodiac/sagittarius.png'
   },
   {
     name: 'capricorn',
     dateRange: 'Dec 22 - Jan 19',
-    icon: '/images/zodiac/capricorn.png'
+    icon: '/icons/zodiac/capricornius.png'
   },
   {
     name: 'aquarius',
     dateRange: 'Jan 20 - Feb 18',
-    icon: '/images/zodiac/aquarius.png'
+    icon: '/icons/zodiac/aquarius.png'
   },
   {
     name: 'pisces',
     dateRange: 'Feb 19 - Mar 20',
-    icon: '/images/zodiac/pisces.png'
+    icon: '/icons/zodiac/pisces.png'
   }
 ];
 
@@ -108,8 +108,8 @@ const ZodiacCard = ({ sign, onClick }) => {
       <CardContent sx={{ p: 2, textAlign: 'center' }}>
         <Box
           sx={{
-            width: { xs: 60, sm: 80, md: 100 },
-            height: { xs: 60, sm: 80, md: 100 },
+            width: { xs: 40, sm: 60, md: 80 },
+            height: { xs: 40, sm: 60, md: 80 },
             mx: 'auto',
             mb: 2,
             position: 'relative',
@@ -215,7 +215,7 @@ const ZodiacGrid = () => {
             right: 0,
             height: '100%',
             opacity: 0.03,
-            backgroundImage: 'url("/images/zodiac-bg-pattern.png")',
+            backgroundImage: 'url("/icons/zodiac/zodiac-bg-pattern.png")',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             zIndex: 0
