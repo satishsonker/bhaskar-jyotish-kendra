@@ -34,6 +34,20 @@ export default {
     birthChart: 'జన్మ కుండలి',
     transitChart: 'గోచార కుండలి'
   },
+  zodiac: {
+    aries: 'మేషం',
+    taurus: 'వృషభం',
+    gemini: 'మిథునం',
+    cancer: 'కర్కాటకం',
+    leo: 'సింహం',
+    virgo: 'కన్య',
+    libra: 'తుల',
+    scorpio: 'వృశ్చికం',
+    sagittarius: 'ధనుస్సు',
+    capricorn: 'మకరం',
+    aquarius: 'కుంభం',
+    pisces: 'మీనం'
+  },
   errors: {
     general: 'ఏదో తప్పు జరిగింది',
     notFound: 'పేజీ కనుగొనబడలేదు',

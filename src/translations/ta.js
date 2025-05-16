@@ -34,6 +34,20 @@ export default {
     birthChart: 'ஜென்ம குண்டலி',
     transitChart: 'கோசார குண்டலி'
   },
+  zodiac: {
+    aries: 'மேஷம்',
+    taurus: 'ரிஷபம்',
+    gemini: 'மிதுனம்',
+    cancer: 'கடகம்',
+    leo: 'சிம்மம்',
+    virgo: 'கன்னி',
+    libra: 'துலாம்',
+    scorpio: 'விருச்சிகம்',
+    sagittarius: 'தனுசு',
+    capricorn: 'மகரம்',
+    aquarius: 'கும்பம்',
+    pisces: 'மீனம்'
+  },
   errors: {
     general: 'ஏதோ தவறு நடந்துவிட்டது',
     notFound: 'பக்கம் கிடைக்கவில்லை',

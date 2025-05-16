@@ -1,30 +1,42 @@
-import React, { useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { Box } from '@mui/material';
-import ErrorBoundary from './components/ErrorBoundary';
-import MainLayout from './layouts/MainLayout';
-import Home from './pages/Home';
-import NotFound from './pages/NotFound';
-import { ThemeProvider as CustomThemeProvider } from './context/ThemeContext';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { useThemeMode } from './context/ThemeContext';
 import { LanguageProvider } from './context/LanguageContext';
+import Layout from './components/layout/Layout';
+import ErrorBoundary from './components/ErrorBoundary';
 
-function App() {
+// Pages
+import Home from './pages/Home';
+import Horoscope from './pages/Horoscope';
+import Profile from './pages/Profile';
+import Settings from './pages/Settings';
+import NotFound from './pages/NotFound';
+
+const App = () => {
+  const { theme } = useThemeMode();
+
   return (
     <ErrorBoundary>
-      <CustomThemeProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
         <LanguageProvider>
-          <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-            <Routes>
-              <Route path="/" element={<MainLayout />}>
-                <Route index element={<Home />} />
+          <Router>
+            <Layout>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/horoscope" element={<Horoscope />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/settings" element={<Settings />} />
                 <Route path="*" element={<NotFound />} />
-              </Route>
-            </Routes>
-          </Box>
+              </Routes>
+            </Layout>
+          </Router>
         </LanguageProvider>
-      </CustomThemeProvider>
+      </ThemeProvider>
     </ErrorBoundary>
   );
-}
+};
 
-export default App; 
+export default App;

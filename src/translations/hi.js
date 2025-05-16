@@ -34,6 +34,20 @@ export default {
     birthChart: 'जन्म कुंडली',
     transitChart: 'गोचर कुंडली'
   },
+  zodiac: {
+    aries: 'मेष',
+    taurus: 'वृषभ',
+    gemini: 'मिथुन',
+    cancer: 'कर्क',
+    leo: 'सिंह',
+    virgo: 'कन्या',
+    libra: 'तुला',
+    scorpio: 'वृश्चिक',
+    sagittarius: 'धनु',
+    capricorn: 'मकर',
+    aquarius: 'कुंभ',
+    pisces: 'मीन'
+  },
   errors: {
     general: 'कुछ गलत हो गया',
     notFound: 'पृष्ठ नहीं मिला',
